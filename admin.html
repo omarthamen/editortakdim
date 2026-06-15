@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>لوحة التحكم — طلبات المونتيرز</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <!-- Login Section -->
+  <section class="admin-login" id="loginSection">
+    <div class="login-card">
+      <h1>لوحة التحكم</h1>
+      <p class="hint">سجّل دخولك للمتابعة</p>
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">الإيميل</label>
+          <input type="email" id="loginEmail" required placeholder="email@example.com" dir="ltr">
+        </div>
+        <div class="field">
+          <label for="password">كلمة السر</label>
+          <input type="password" id="loginPassword" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-submit" id="loginBtn">دخول</button>
+        <p class="form-msg" id="loginMsg"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section id="dashSection" hidden>
+    <header class="topbar">
+      <h1>طلبات المونتيرز</h1>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span id="userName" style="font-size:14px;color:var(--text-muted)"></span>
+        <button class="btn-ghost" id="logoutBtn">خروج</button>
+      </div>
+    </header>
+
+    <main class="dash">
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="statTotal">0</div>
+          <div class="stat-label">إجمالي الطلبات</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="statNew">0</div>
+          <div class="stat-label">جديد</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="statReviewed">0</div>
+          <div class="stat-label">تمت المراجعة</div>
+        </div>
+      </div>
+
+      <!-- Applications List -->
+      <h2 class="section-title">
+        <span>📋</span> الطلبات
+        <button class="btn-ghost" style="margin-inline-start:auto;font-size:13px" onclick="loadApplications()">تحديث</button>
+      </h2>
+
+      <div class="apps-list" id="appsList">
+        <div class="empty-state">
+          <span>📭</span>
+          <p>جارٍ التحميل...</p>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>
