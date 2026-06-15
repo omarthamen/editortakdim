@@ -1,11 +1,11 @@
-/* Editor Hiring — Styles */
+/* Editor Hiring — Styles (Thameen Brand) */
 :root {
-  --bg: #0a0a0f;
-  --bg-card: #12121a;
-  --primary: #6366f1;
-  --primary-light: #818cf8;
+  --bg: #000000;
+  --bg-card: #111118;
+  --primary: #2C8DD0;
+  --primary-light: #5BB8E8;
   --text: #fff;
-  --text-muted: rgba(255,255,255,.7);
+  --text-muted: rgba(255,255,255,.72);
   --text-subtle: rgba(255,255,255,.5);
   --success: #22c55e;
   --border: rgba(255,255,255,.1);
@@ -29,8 +29,8 @@ body {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(60vw 60vw at 70% 10%, rgba(99,102,241,.15), transparent 60%),
-    radial-gradient(40vw 40vw at 20% 80%, rgba(99,102,241,.1), transparent 50%),
+    radial-gradient(60vw 60vw at 80% -10%, rgba(91,184,232,.16), transparent 60%),
+    radial-gradient(50vw 50vw at 0% 30%, rgba(19,72,112,.2), transparent 60%),
     var(--bg);
 }
 
@@ -50,7 +50,7 @@ body {
   font-size: clamp(28px, 6vw, 42px);
   font-weight: 800;
   margin-bottom: 12px;
-  background: linear-gradient(135deg, #fff 30%, var(--primary-light));
+  background: linear-gradient(135deg, #fff 30%, #5BB8E8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -162,7 +162,7 @@ body {
 .field textarea:focus {
   outline: none;
   border-color: var(--primary);
-  background: rgba(99,102,241,.08);
+  background: rgba(44,141,208,.08);
 }
 
 .field small {
@@ -182,20 +182,20 @@ body {
   font-family: inherit;
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #04121d;
+  background: linear-gradient(135deg, #5BB8E8, #2C8DD0);
   border: none;
   border-radius: 12px;
   padding: 16px;
   cursor: pointer;
   transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 8px 30px rgba(99,102,241,.3);
+  box-shadow: 0 12px 30px rgba(44,141,208,.4);
   margin-top: 8px;
 }
 
 .btn-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(99,102,241,.4);
+  box-shadow: 0 12px 40px rgba(44,141,208,.4);
 }
 
 .btn-submit:active {
@@ -387,7 +387,7 @@ footer {
 }
 
 .app-card:hover {
-  border-color: rgba(99,102,241,.4);
+  border-color: rgba(44,141,208,.4);
 }
 
 .app-header {
@@ -492,7 +492,7 @@ footer {
 
 .status-new {
   color: var(--primary-light);
-  background: rgba(99,102,241,.15);
+  background: rgba(44,141,208,.15);
 }
 
 .status-reviewed {
