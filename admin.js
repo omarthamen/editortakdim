@@ -192,33 +192,93 @@ function showDashboard() {
 async function loadVideo() {
   try {
     const data = await dbGet("site_settings?key=eq.hero_video&select=value");
-    if (data && data[0]) {
-      $("videoUrl").value = data[0].value || "";
+    if (data && data[0] && data[0].value) {
+      $("videoUrl").value = data[0].value;
+      $("videoPreview").src = data[0].value;
+      $("currentVideo").hidden = false;
     }
   } catch (e) {
     console.log("No video set yet");
   }
 }
 
+async function uploadVideo(file) {
+  const progress = $("uploadProgress");
+  const bar = $("uploadBar");
+  const text = $("uploadText");
+  progress.hidden = false;
+
+  const fileName = `hero_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+
+  try {
+    // Upload to Supabase Storage
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/videos/${fileName}`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${TOKEN}`,
+        "Content-Type": file.type
+      },
+      body: file
+    });
+
+    if (!res.ok) throw new Error(await res.text());
+
+    bar.style.width = "100%";
+    text.textContent = "تم الرفع!";
+
+    // Get public URL
+    const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/videos/${fileName}`;
+    return publicUrl;
+
+  } catch (e) {
+    throw e;
+  }
+}
+
 async function saveVideo() {
-  const url = $("videoUrl").value.trim();
+  const file = $("videoFile").files[0];
+  const urlInput = $("videoUrl").value.trim();
   const msg = $("videoMsg");
   const btn = $("saveVideoBtn");
 
   btn.disabled = true;
   msg.textContent = "";
+  msg.className = "form-msg";
 
   try {
-    // Upsert
+    let videoUrl = urlInput;
+
+    // If file selected, upload it first
+    if (file) {
+      msg.textContent = "جارٍ رفع الفيديو...";
+      videoUrl = await uploadVideo(file);
+      $("videoUrl").value = videoUrl;
+    }
+
+    if (!videoUrl) {
+      throw new Error("اختر ملف أو أدخل رابط");
+    }
+
+    // Save URL to database
     await dbSend("POST", "site_settings?on_conflict=key",
-      { key: "hero_video", value: url },
+      { key: "hero_video", value: videoUrl },
       "resolution=merge-duplicates,return=minimal"
     );
+
     msg.textContent = "تم حفظ الفيديو!";
     msg.className = "form-msg success";
+
+    // Show preview
+    $("videoPreview").src = videoUrl;
+    $("currentVideo").hidden = false;
+    $("videoFile").value = "";
+    $("uploadProgress").hidden = true;
+
   } catch (e) {
     msg.textContent = "خطأ: " + e.message;
     msg.className = "form-msg error";
+    $("uploadProgress").hidden = true;
   } finally {
     btn.disabled = false;
   }

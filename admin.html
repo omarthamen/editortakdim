@@ -64,11 +64,26 @@
       <div class="card" style="margin-bottom:24px">
         <h3 style="margin-bottom:14px">🎬 فيديو الصفحة الرئيسية</h3>
         <div class="field">
-          <label>رابط الفيديو (YouTube, Vimeo, أو رابط مباشر mp4)</label>
+          <label>ارفع فيديو من جهازك</label>
+          <input type="file" id="videoFile" accept="video/*" style="margin-bottom:12px">
+          <div id="uploadProgress" hidden style="margin-bottom:12px">
+            <div style="background:rgba(255,255,255,.1);border-radius:8px;height:8px;overflow:hidden">
+              <div id="uploadBar" style="background:var(--primary);height:100%;width:0%;transition:width .3s"></div>
+            </div>
+            <small id="uploadText" style="color:var(--text-muted)">جارٍ الرفع...</small>
+          </div>
+        </div>
+        <div style="text-align:center;color:var(--text-subtle);margin:12px 0">— أو —</div>
+        <div class="field">
+          <label>رابط فيديو (YouTube, Vimeo, أو رابط مباشر)</label>
           <input type="url" id="videoUrl" placeholder="https://..." dir="ltr">
         </div>
         <button class="btn-sm btn-primary" id="saveVideoBtn">حفظ الفيديو</button>
         <p class="form-msg" id="videoMsg"></p>
+        <div id="currentVideo" style="margin-top:14px" hidden>
+          <label style="font-size:13px;color:var(--text-muted)">الفيديو الحالي:</label>
+          <video id="videoPreview" controls style="width:100%;max-height:200px;border-radius:10px;margin-top:8px"></video>
+        </div>
       </div>
 
       <!-- Applications List -->
