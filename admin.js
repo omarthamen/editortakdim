@@ -185,7 +185,46 @@ function showDashboard() {
   $("dashSection").hidden = false;
   $("userName").textContent = USER?.user_metadata?.name || USER?.email || "";
   loadApplications();
+  loadVideo();
 }
+
+// Video Management
+async function loadVideo() {
+  try {
+    const data = await dbGet("site_settings?key=eq.hero_video&select=value");
+    if (data && data[0]) {
+      $("videoUrl").value = data[0].value || "";
+    }
+  } catch (e) {
+    console.log("No video set yet");
+  }
+}
+
+async function saveVideo() {
+  const url = $("videoUrl").value.trim();
+  const msg = $("videoMsg");
+  const btn = $("saveVideoBtn");
+
+  btn.disabled = true;
+  msg.textContent = "";
+
+  try {
+    // Upsert
+    await dbSend("POST", "site_settings?on_conflict=key",
+      { key: "hero_video", value: url },
+      "resolution=merge-duplicates,return=minimal"
+    );
+    msg.textContent = "تم حفظ الفيديو!";
+    msg.className = "form-msg success";
+  } catch (e) {
+    msg.textContent = "خطأ: " + e.message;
+    msg.className = "form-msg error";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+$("saveVideoBtn").addEventListener("click", saveVideo);
 
 // Init
 (async () => {

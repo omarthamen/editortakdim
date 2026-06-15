@@ -56,8 +56,34 @@ $("applicationForm").addEventListener("submit", async (e) => {
   }
 });
 
-// Check if video source exists
-const video = $("heroVideo");
-if (video && video.querySelector("source").src) {
-  $("videoPlaceholder").hidden = true;
+// Load video from database
+async function loadHeroVideo() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/site_settings?key=eq.hero_video&select=value`, {
+      headers: { "apikey": SUPABASE_KEY }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && data[0] && data[0].value) {
+      const url = data[0].value;
+      const video = $("heroVideo");
+      const placeholder = $("videoPlaceholder");
+
+      // Check if YouTube
+      const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+      if (ytMatch) {
+        const wrapper = video.parentElement;
+        wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytMatch[1]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;inset:0"></iframe>`;
+        wrapper.style.position = "relative";
+      } else {
+        video.querySelector("source").src = url;
+        video.load();
+        placeholder.hidden = true;
+      }
+    }
+  } catch (e) {
+    console.log("No video configured");
+  }
 }
+
+loadHeroVideo();
