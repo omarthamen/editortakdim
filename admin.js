@@ -202,38 +202,44 @@ async function loadVideo() {
   }
 }
 
-async function uploadVideo(file) {
-  const progress = $("uploadProgress");
-  const bar = $("uploadBar");
-  const text = $("uploadText");
-  progress.hidden = false;
+function uploadVideo(file) {
+  return new Promise((resolve, reject) => {
+    const progress = $("uploadProgress");
+    const bar = $("uploadBar");
+    const text = $("uploadText");
+    progress.hidden = false;
+    bar.style.width = "0%";
 
-  const fileName = `hero_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+    const fileName = `hero_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+    const xhr = new XMLHttpRequest();
 
-  try {
-    // Upload to Supabase Storage
-    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/videos/${fileName}`, {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${TOKEN}`,
-        "Content-Type": file.type
-      },
-      body: file
+    xhr.upload.addEventListener("progress", (e) => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 100);
+        bar.style.width = pct + "%";
+        text.textContent = `جارٍ الرفع... ${pct}%`;
+      }
     });
 
-    if (!res.ok) throw new Error(await res.text());
+    xhr.addEventListener("load", () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        bar.style.width = "100%";
+        text.textContent = "تم الرفع!";
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/videos/${fileName}`;
+        resolve(publicUrl);
+      } else {
+        reject(new Error(xhr.responseText || "فشل الرفع"));
+      }
+    });
 
-    bar.style.width = "100%";
-    text.textContent = "تم الرفع!";
+    xhr.addEventListener("error", () => reject(new Error("خطأ في الاتصال")));
 
-    // Get public URL
-    const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/videos/${fileName}`;
-    return publicUrl;
-
-  } catch (e) {
-    throw e;
-  }
+    xhr.open("POST", `${SUPABASE_URL}/storage/v1/object/videos/${fileName}`);
+    xhr.setRequestHeader("apikey", SUPABASE_KEY);
+    xhr.setRequestHeader("Authorization", `Bearer ${TOKEN}`);
+    xhr.setRequestHeader("Content-Type", file.type);
+    xhr.send(file);
+  });
 }
 
 async function saveVideo() {
