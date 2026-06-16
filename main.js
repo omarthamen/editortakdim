@@ -68,13 +68,30 @@ async function loadHeroVideo() {
       const url = data[0].value;
       const video = $("heroVideo");
       const placeholder = $("videoPlaceholder");
+      const wrapper = video.parentElement;
 
       // Check if YouTube
       const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
       if (ytMatch) {
-        const wrapper = video.parentElement;
-        wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytMatch[1]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;inset:0"></iframe>`;
+        const videoId = ytMatch[1];
+        // Show thumbnail with play button
+        wrapper.innerHTML = `
+          <div class="yt-thumb" id="ytThumb" style="position:absolute;inset:0;cursor:pointer;background:#000">
+            <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg"
+                 style="width:100%;height:100%;object-fit:cover;opacity:0.85"
+                 onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+              <div style="width:80px;height:80px;background:rgba(44,141,208,0.95);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.4);transition:transform .2s">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>`;
         wrapper.style.position = "relative";
+
+        // On click, replace with autoplay iframe
+        $("ytThumb").addEventListener("click", () => {
+          wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;inset:0"></iframe>`;
+        });
       } else {
         video.querySelector("source").src = url;
         video.load();
