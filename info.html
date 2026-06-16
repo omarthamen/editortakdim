@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معلومات للمتقدمين</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --primary: #2C8DD0;
+      --primary-light: #5BB8E8;
+      --text: #fff;
+      --text-muted: rgba(255,255,255,.7);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .slide::after {
+      content: '';
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.3)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 14l-7 7m0 0l-7-7m7 7V3'/%3E%3C/svg%3E") center/contain no-repeat;
+      animation: bounce 2s infinite;
+    }
+    .slide:last-child::after { display: none; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
+      50% { transform: translateX(-50%) translateY(10px); opacity: 0.6; }
+    }
+    h1 {
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 800;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 40%, var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-light);
+    }
+    p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .lead {
+      font-size: 22px;
+      color: var(--text);
+    }
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+    li {
+      font-size: 18px;
+      padding: 12px 0;
+      padding-right: 32px;
+      position: relative;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    li:last-child { border-bottom: none; }
+    li::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(44,141,208,.15), rgba(91,184,232,.05));
+      border: 1px solid rgba(91,184,232,.2);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 24px 0;
+    }
+    .warning-box {
+      background: rgba(255,180,80,.08);
+      border: 1px solid rgba(255,180,80,.25);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .warning-box p { color: rgba(255,200,120,.9); }
+    .cta-btn {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: 700;
+      color: #04121d;
+      background: linear-gradient(135deg, #5BB8E8, #2C8DD0);
+      border: none;
+      border-radius: 12px;
+      padding: 18px 40px;
+      margin-top: 24px;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(44,141,208,.4);
+      transition: transform .2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); }
+    .number {
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--primary);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+      margin: 32px 0;
+    }
+    .glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(44,141,208,.15) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .glow-1 { top: -200px; right: -200px; }
+    .glow-2 { bottom: -200px; left: -200px; }
+  </style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- Slide 1: مقدمة -->
+  <section class="slide">
+    <p class="lead">بما أنك هنا...</p>
+    <h1>فغالباً أنت مهتم بهذه الفرصة</h1>
+    <div class="divider"></div>
+    <div class="warning-box">
+      <p>لكن من البداية: <strong>ليس أي شخص سيتم قبوله للعمل معنا.</strong></p>
+    </div>
+  </section>
+
+  <!-- Slide 2: من نبحث عنه -->
+  <section class="slide">
+    <h2>من نبحث عنه؟</h2>
+    <p>نحن لا نبحث عن شخص يعرف يعمل بعض التأثيرات.</p>
+    <p>ولا نبحث عن شخص فقط يعرف After Effects أو Premiere Pro.</p>
+  </section>
+
+  <!-- Slide 3: المواصفات -->
+  <section class="slide">
+    <h2>نبحث عن شخص:</h2>
+    <ul>
+      <li>ملتزم</li>
+      <li>يتواصل بشكل جيد</li>
+      <li>يرد في الوقت</li>
+      <li>يحترم المواعيد</li>
+      <li>يفهم المحتوى</li>
+      <li>يفهم الهدف من الفيديو</li>
+      <li>يساعدنا نوصل لهدفنا بدل ما يكون عبئاً علينا</li>
+    </ul>
+  </section>
+
+  <!-- Slide 4: الاستعداد للتغيير -->
+  <section class="slide">
+    <h2>وكذلك يحتاج تكون مستعد:</h2>
+    <p>تغيّر طريقة عملك وتشتغل داخل بيئة منظمة.</p>
+    <ul>
+      <li>التطور المستمر</li>
+      <li>الالتزام بالنظام</li>
+      <li>استقبال الملاحظات</li>
+      <li>تحسين مستواك بشكل دائم</li>
+    </ul>
+  </section>
+
+  <!-- Slide 5: التعديلات -->
+  <section class="slide">
+    <h2>التعديلات عندنا مختلفة</h2>
+    <p>التعديلات اللي رح توصلك غالباً ما رح تكون مبنية على الذوق.</p>
+    <p>في الغالب رح تكون:</p>
+    <ul>
+      <li>خطأ يجب إصلاحه</li>
+      <li>فكرة تحسّن الفيديو</li>
+      <li>طريقة تجعل المشاهد يفهم بشكل أفضل</li>
+      <li>تحسين يرفع جودة المحتوى</li>
+    </ul>
+    <div class="highlight-box">
+      <p style="color:#fff; margin:0;">لهذا نحتاج شخصاً يرى التعديلات <strong>كفرصة للتطور</strong>، وليس انتقاد شخصي.</p>
+    </div>
+  </section>
+
+  <!-- Slide 6: ماذا ستحصل عليه -->
+  <section class="slide">
+    <h2>ماذا ستحصل عليه بعد العمل معنا؟</h2>
+    <p>إذا تم قبولك ستحصل على:</p>
+    <ul>
+      <li>Workflow كامل للعمل</li>
+      <li>Project Templates جاهزة</li>
+      <li>طريقة تنظيم الملفات</li>
+      <li>طريقة التسليم</li>
+    </ul>
+  </section>
+
+  <!-- Slide 7: لن تبدأ من الصفر -->
+  <section class="slide">
+    <div class="number">+500</div>
+    <h2>لن تبدأ من الصفر</h2>
+    <p>أنت لا تبدأ من صفحة فارغة.</p>
+    <p>بل تدخل إلى <strong>نظام جاهز</strong>.</p>
+    <p>تم تطوير هذا النظام بعد العمل على أكثر من <strong>500 فيديو Reels</strong>.</p>
+  </section>
+
+  <!-- Slide 8: Test Video -->
+  <section class="slide">
+    <h2>الآن ننتقل إلى Test Video</h2>
+    <p>في صفحة الاختبار ستجد:</p>
+    <ul>
+      <li>رابط الـ Raw Footage</li>
+      <li>الملفات المطلوبة</li>
+      <li>التعليمات الخاصة بالاختبار</li>
+    </ul>
+    <p>مهمتك هي تنفيذ الفيديو ورفع النتيجة داخل الفورم.</p>
+  </section>
+
+  <!-- Slide 9: قبل أن تبدأ -->
+  <section class="slide">
+    <h2>قبل أن تبدأ المونتاج</h2>
+    <p>لقد جهزنا لك كل شيء تحتاجه:</p>
+    <ul>
+      <li>مكتبة مراجع وإلهام</li>
+      <li>أمثلة للفيديوهات</li>
+      <li>قواعد الأسلوب البصري</li>
+      <li>الهوية البصرية</li>
+      <li>الـ Safe Zone</li>
+    </ul>
+    <p>حتى تعمل داخل نفس النظام المطلوب.</p>
+  </section>
+
+  <!-- Slide 10: الخطوة الأخيرة -->
+  <section class="slide">
+    <h2>الخطوة الأخيرة</h2>
+    <p>بعد الانتهاء من الفيديو:</p>
+    <ul>
+      <li>ارفع العمل داخل الفورم</li>
+      <li>تأكد من إرسال جميع البيانات المطلوبة</li>
+      <li>انتظر مراجعة الفريق</li>
+    </ul>
+    <div class="divider"></div>
+    <p style="font-size:24px; color:#fff;">نتمنى لك التوفيق.</p>
+    <a href="index.html" class="cta-btn">قدّم الآن</a>
+  </section>
+
+</body>
+</html>
