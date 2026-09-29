@@ -12,6 +12,17 @@ function esc(s) {
   return d.innerHTML;
 }
 
+function safeUrl(url) {
+  if (!url) return "#";
+  try {
+    const u = new URL(url);
+    if (!["http:", "https:"].includes(u.protocol)) return "#";
+    return url;
+  } catch {
+    return "#";
+  }
+}
+
 function authHeaders() {
   return {
     "apikey": SUPABASE_KEY,
@@ -109,8 +120,8 @@ async function loadApplications() {
           ${app.phone ? `<span>📱 <a href="https://wa.me/${app.phone.replace(/\D/g,'')}">${esc(app.phone)}</a></span>` : ""}
         </div>
         <div class="app-info">
-          <span>🎬 <a href="${esc(app.portfolio)}" target="_blank">البورتفوليو</a></span>
-          ${app.test_video ? `<span>📹 <a href="${esc(app.test_video)}" target="_blank">التيست</a></span>` : ""}
+          <span>🎬 <a href="${safeUrl(app.portfolio)}" target="_blank" rel="noopener">البورتفوليو</a></span>
+          ${app.test_video ? `<span>📹 <a href="${safeUrl(app.test_video)}" target="_blank" rel="noopener">التيست</a></span>` : ""}
         </div>
         ${app.notes ? `<div class="app-notes">${esc(app.notes)}</div>` : ""}
         <div class="app-actions">

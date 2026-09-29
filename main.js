@@ -88,9 +88,9 @@ async function loadHeroVideo() {
           </div>`;
         wrapper.style.position = "relative";
 
-        // On click, replace with autoplay iframe
+        // On click, replace with autoplay iframe (no YouTube branding)
         $("ytThumb").addEventListener("click", () => {
-          wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;inset:0"></iframe>`;
+          wrapper.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&iv_load_policy=3&fs=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;position:absolute;inset:0"></iframe>`;
         });
       } else {
         video.querySelector("source").src = url;
