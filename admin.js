@@ -1,6 +1,6 @@
 // Editor Hiring — Admin Dashboard
-const SUPABASE_URL = "https://jbgvypuckdqzkkxgvsgb.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZ3Z5cHVja2RxemtreGd2c2diIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTM1OTIsImV4cCI6MjA5NzEyOTU5Mn0.dLOK04jl49Bam9hK9MdpYd0Jz-cZwkBUMg53l70K9Ik";
+const SUPABASE_URL = "https://hwzpjxxfdqsjymxbjokv.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3enBqeHhmZHFzanlteGJqb2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MTQ3MDIsImV4cCI6MjA5NTk5MDcwMn0.-oCDV36bh4v1ZU171OcHHwM2hyWoQ3GUtgiv1lpNcZM";
 
 const $ = (id) => document.getElementById(id);
 let TOKEN = localStorage.getItem("hiring_token");
@@ -202,7 +202,7 @@ function showDashboard() {
 // Video Management
 async function loadVideo() {
   try {
-    const data = await dbGet("site_settings?key=eq.hero_video&select=value");
+    const data = await dbGet("hiring_settings?key=eq.hero_video&select=value");
     if (data && data[0] && data[0].value) {
       $("videoUrl").value = data[0].value;
       $("videoPreview").src = data[0].value;
@@ -236,7 +236,7 @@ function uploadVideo(file) {
       if (xhr.status >= 200 && xhr.status < 300) {
         bar.style.width = "100%";
         text.textContent = "تم الرفع!";
-        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/videos/${fileName}`;
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/hiring-videos/${fileName}`;
         resolve(publicUrl);
       } else {
         reject(new Error(xhr.responseText || "فشل الرفع"));
@@ -245,7 +245,7 @@ function uploadVideo(file) {
 
     xhr.addEventListener("error", () => reject(new Error("خطأ في الاتصال")));
 
-    xhr.open("POST", `${SUPABASE_URL}/storage/v1/object/videos/${fileName}`);
+    xhr.open("POST", `${SUPABASE_URL}/storage/v1/object/hiring-videos/${fileName}`);
     xhr.setRequestHeader("apikey", SUPABASE_KEY);
     xhr.setRequestHeader("Authorization", `Bearer ${TOKEN}`);
     xhr.setRequestHeader("Content-Type", file.type);
@@ -278,7 +278,7 @@ async function saveVideo() {
     }
 
     // Save URL to database
-    await dbSend("POST", "site_settings?on_conflict=key",
+    await dbSend("POST", "hiring_settings?on_conflict=key",
       { key: "hero_video", value: videoUrl },
       "resolution=merge-duplicates,return=minimal"
     );

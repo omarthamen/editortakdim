@@ -17,7 +17,11 @@
 
 ## Supabase
 
-يستخدم نفس مشروع Omar: `hwzpjxxfdqsjymxbjokv`
+يستخدم مشروع Omar: `hwzpjxxfdqsjymxbjokv` (انتقل له في 2026-10 بعد ما انحذف المشروع القديم `jbgvypuckdqzkkxgvsgb`)
+
+الدخول للوحة بحساب `omarthamen@gmail.com` فقط (RLS).
+- `hiring_settings` — فيديو الصفحة (`hero_video`)
+- Storage bucket: `hiring-videos`
 
 الجدول: `editor_applications`
 - أي زائر يقدر يرسل طلب

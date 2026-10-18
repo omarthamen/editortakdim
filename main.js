@@ -1,6 +1,6 @@
 // Editor Hiring — Landing Page
-const SUPABASE_URL = "https://jbgvypuckdqzkkxgvsgb.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZ3Z5cHVja2RxemtreGd2c2diIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTM1OTIsImV4cCI6MjA5NzEyOTU5Mn0.dLOK04jl49Bam9hK9MdpYd0Jz-cZwkBUMg53l70K9Ik";
+const SUPABASE_URL = "https://hwzpjxxfdqsjymxbjokv.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3enBqeHhmZHFzanlteGJqb2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MTQ3MDIsImV4cCI6MjA5NTk5MDcwMn0.-oCDV36bh4v1ZU171OcHHwM2hyWoQ3GUtgiv1lpNcZM";
 
 const $ = (id) => document.getElementById(id);
 
@@ -59,7 +59,7 @@ $("applicationForm").addEventListener("submit", async (e) => {
 // Load video from database
 async function loadHeroVideo() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/site_settings?key=eq.hero_video&select=value`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/hiring_settings?key=eq.hero_video&select=value`, {
       headers: { "apikey": SUPABASE_KEY }
     });
     if (!res.ok) return;
