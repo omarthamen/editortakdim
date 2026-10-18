@@ -19,7 +19,7 @@
 
 يستخدم مشروع Omar: `hwzpjxxfdqsjymxbjokv` (انتقل له في 2026-10 بعد ما انحذف المشروع القديم `jbgvypuckdqzkkxgvsgb`)
 
-الدخول للوحة بحساب `omarthamen@gmail.com` فقط (RLS).
+الدخول للوحة لـ `omarthamen@gmail.com` و `adobea479@gmail.com` فقط (الدالة `is_hiring_admin()` في RLS).
 - `hiring_settings` — فيديو الصفحة (`hero_video`)
 - Storage bucket: `hiring-videos`
 
